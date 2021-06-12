@@ -1,0 +1,200 @@
+{% load static %}
+<!--Trang chu cua admin-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Admin | Cập nhật công việc</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="{% static 'img/mdb-favicon.ico'%}" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="{% static './css/style.css'%}">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/style_sidebar.css'%}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <!-- Font Awesome JS -->
+    <script defer="" src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer="" src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  </head>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>BLOG</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="../">Cài đặt lịch</a>
+            </li>
+            <li>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tài khoản</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="../changepass">Đổi mật khẩu</a>
+                    </li>
+                    <li>
+                        <a href="../changemail">Đổi mail</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="../calendar_pass">Mật khẩu xem lịch</a>
+            </li>
+            <li>
+                <a href="../../logout">Đăng xuất</a>
+            </li>
+        </ul>
+    </nav>
+
+<!--     Page content -->
+    <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+                <div style="width: 300px;">
+                     <h5 class="modal-title">CẬP NHẬT CÔNG VIỆC</h5>
+
+                   </div>
+                   <div class="modal-body">
+         <form action="../" method="post">
+               {% csrf_token %}
+        <label class="form-label">Bắt đầu</label>
+        <div class="form-outline">
+          <input type="time" name="BD" class="form-control" value="{{thu.ThoiGianBD|time:'H:i'}}"/>
+        </div></br>
+        <label class="form-label">Kết thúc</label>
+        <div class="form-outline">
+          <input type="time" name="KT" class="form-control" value="{{thu.ThoiGianKT|time:'H:i'}}"/>
+        </div></br>
+        <div class="form-outline">
+          <input type="text" name="TieuDe" id="TieuDe" class="form-control" value="{{thu.TieuDe}}"/>
+          <label class="form-label" for="TieuDe">Tiêu đề công việc</label>
+        </div></br>
+        <div class="form-outline">
+          <textarea class="form-control" name="NoiDung" id="NoiDung" rows="4">{{thu.NoiDung}}</textarea>
+          <label class="form-label" for="NoiDung">Nội dung</label>
+        </div></br>
+        <div class="form-outline">
+            <label style="color: red;" class="form-label">{{info}}</label>
+        </div>
+
+      <div class="modal-footer">
+        <button id="btnXemLai" formaction="../selected/{{thu.id_tuan_id}}" type="submit" class="btn btn-secondary" data-mdb-dismiss="modal">
+          Xem Lại
+        </button>
+          {% if day == 't2' %}
+            <button id="btnUpdate"  formaction="../update/mon&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 't3' %}
+          <button formaction="../update/tue&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 't4' %}
+          <button formaction="../update/wed&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 't5' %}
+          <button formaction="../update/thur&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 't6' %}
+          <button formaction="../update/fri&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 't7' %}
+          <button formaction="../update/sat&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% elif day == 'cn' %}
+          <button formaction="../update/sun&{{thu.id}}" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          {% endif %}
+      </div>
+      </form>
+                   </div>
+        </div>
+    </nav>
+</div>
+
+
+
+</div>
+    <!-- End your project here-->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js'%}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+    <script src="{% static 'js/util.js' %}"></script> <!-- util functions included in the CodyHouse framework -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+      let next = document.getElementById("next");
+      let back = document.getElementById("back");
+
+      Tuan = [
+      {% for t in tuan %}
+       {% if not forloop.first %},{% endif %}
+        {
+          "NgayBD" : "{{ t.NgayBD|date:'Y-d-m' }}",
+          "NgayKT" : "{{ t.NgayKT|date:'Y-d-m' }}"
+        }
+      {% endfor %}
+      ]
+      var i = 0;
+      next.addEventListener("click", function(){
+             document.getElementById("ChonNgay").value= "2020-01-01";
+      });
+<!--      alert(Tuan[1].NgayBD);-->
+
+    </script>
+  <script>
+        var btn = document.getElementsByClassName("btnCapNhat");
+        for(let i = 0; i < btn.length; i++)
+        {
+            btn[i].addEventListener("click",function(){
+                  document.getElementById("modalUpdate").style.display = "block";
+            });
+        }
+        var btnDong = document.getElementById("btnDong");
+        btnDong.addEventListener("click", function(){
+           document.getElementById("modalUpdate").style.display = "none";
+        });
+        var btnLuu = document.getElementById("btnLuu");
+        btnLuu.addEventListener("click", function(){
+<!--           var val = document.getElementById("NgayBD").value;-->
+<!--           alert();-->
+<!--               document.getElementById("NgayBD").value = "{{test}}";-->
+               document.getElementById("NgayBD").value = "{{test}}";
+        });
+
+
+  </script>
+  <script type="text/javascript">
+        $(document).ready(function () {
+        $("#sidebar").mCustomScrollbar({
+            theme: "minimal"
+        });
+
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+    });
+   </script>
+
+<!--   <script type="text/javascript" src="{% static './js/next.js' %}"></script>-->
+</div>
+    </main>
+  </div>
+
+</html>
